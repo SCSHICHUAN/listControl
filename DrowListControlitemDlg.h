@@ -30,7 +30,7 @@ protected:
 
 	Image *m_image;
 	
-	CPtrArray m_Equment;//存struct指针数组，model接收struct
+	CArray<ModelStruct, ModelStruct&> m_Equment;//存struct指针数组，model接收struct
 
 	//不初始化照片不会显示
 	Gdiplus::GdiplusStartupInput m_pGdipluStartupInput;
@@ -48,8 +48,10 @@ public:
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
 	afx_msg void F(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnNMHoverList3(NMHDR *pNMHDR, LRESULT *pResult);
+//	afx_msg void OnNMHoverList3(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult);
 public:
 	void CDrowListControlitemDlg::DrowPicture(ModelStruct mode);
+//	afx_msg void OnLvnHotTrackList3(NMHDR *pNMHDR, LRESULT *pResult);
+//	afx_msg void OnLvnHotTrackList3(NMHDR *pNMHDR, LRESULT *pResult);
 };

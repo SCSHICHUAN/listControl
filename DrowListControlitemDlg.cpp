@@ -9,7 +9,10 @@
 
 #include"ListItem.h"
 
+#include<iostream>
+#include<fstream>
 
+using namespace std;
 
 #include<gdiplus.h>
 using namespace Gdiplus;
@@ -76,8 +79,10 @@ BEGIN_MESSAGE_MAP(CDrowListControlitemDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &CDrowListControlitemDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CDrowListControlitemDlg::OnBnClickedButton2)
 	ON_NOTIFY(HDN_FILTERBTNCLICK, 0, &CDrowListControlitemDlg::F)
-	ON_NOTIFY(NM_HOVER, IDC_LIST3, &CDrowListControlitemDlg::OnNMHoverList3)
+//	ON_NOTIFY(NM_HOVER, IDC_LIST3, &CDrowListControlitemDlg::OnNMHoverList3)
 	ON_NOTIFY(NM_CLICK, IDC_LIST3, &CDrowListControlitemDlg::OnNMClickList3)
+//	ON_NOTIFY(LVN_HOTTRACK, IDC_LIST3, &CDrowListControlitemDlg::OnLvnHotTrackList3)
+//ON_NOTIFY(LVN_HOTTRACK, IDC_LIST3, &CDrowListControlitemDlg::OnLvnHotTrackList3)
 END_MESSAGE_MAP()
 
 
@@ -183,7 +188,7 @@ void CDrowListControlitemDlg::OnBnClickedButton1()
 	
 	for (INT i = 0; i < 40; i++)
 	{
-		ModelStruct wxData = *((ModelStruct *)m_Equment.GetAt(i));
+		ModelStruct wxData = m_Equment.GetAt(i);
 		m_list.InsertItem(i, _T(""));//触发重绘控件的代码
 		m_list.SetItemInfo(i, wxData);
 	}
@@ -197,25 +202,44 @@ void CDrowListControlitemDlg::OnBnClickedButton2()
 	
 	CString SNNumberData;
 	CString photoPathData;
+	CString out = _T("1\n");
 
 	for (int i = 0; i < 40; i++)
 	{
-		ModelStruct *model = new ModelStruct;
+		
+		ModelStruct model;
 		
 		SNNumberData.Format(_T("DY0900010%d"), i);
-		model->SNNumber = SNNumberData;
+		model.SNNumber = SNNumberData;
 
 		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\桌面文件\\lili\\%d.jpg"), i);//照片的路径
-		model->photoPath = photoPathData;
-
+		out += photoPathData;
+		out += "\n";
+		model.photoPath = photoPathData;
 
 		m_Equment.Add(model);//添加数据模型model<struct>
 		
 	}
 
+	out += "ddd56464646464dddd";
+	
+
+	//CString 转 char 
+	int len = out.GetLength();
+	char *cstr = new char[len + 1];
+	cstr[len] = 0;
+	WideCharToMultiByte(CP_OEMCP, 0, out, -1, cstr, len, NULL, NULL);
+	
 
 
 
+	ofstream outfile;
+	outfile.open("C:\\Users\\SHICHUAN\\Desktop\\12.txt");
+	outfile << cstr << endl;
+	delete cstr;
+	outfile.close();
+
+	
 }
 
 
@@ -228,19 +252,7 @@ void CDrowListControlitemDlg::F(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 }
 
-//listControl 鼠标悬停在某一项上
-void CDrowListControlitemDlg::OnNMHoverList3(NMHDR *pNMHDR, LRESULT *pResult)
-{
-	// TODO: 在此添加控件通知处理程序代码
 
-	NM_LISTVIEW *pNMListView = (NM_LISTVIEW *)pNMHDR;
-	ModelStruct model = m_list.GetItemInfo(pNMListView->iItem);
-
-	AfxMessageBox(model.SNNumber);
-
-
-	*pResult = 0;
-}
 
 //listControl 某一项被点击
 void CDrowListControlitemDlg::OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult)
@@ -253,22 +265,8 @@ void CDrowListControlitemDlg::OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult)
 	CFont font;
    font.CreatePointFont(150, L"微软雅黑");
    GetDlgItem(IDC_STATIC)->SetFont(&font);
-  
-   
-	         
-
-
-
 	SetDlgItemText(IDC_STATIC, model.SNNumber);
-
-
-
 	DrowPicture(model);
-
-
-	
-
-
 	*pResult = 0;
 }
 
@@ -281,3 +279,7 @@ void CDrowListControlitemDlg::DrowPicture(ModelStruct mode)
 	g.DrawImage(m_image, rcItem.left, rcItem.top, rcItem.Width(), rcItem.Height());
 	delete m_image;
 }
+
+
+
+
