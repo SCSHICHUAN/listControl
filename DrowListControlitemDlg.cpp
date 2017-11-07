@@ -17,6 +17,8 @@ using namespace std;
 #include<gdiplus.h>
 using namespace Gdiplus;
 
+#include"Model.h"
+#include"ListData.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -83,6 +85,10 @@ BEGIN_MESSAGE_MAP(CDrowListControlitemDlg, CDialogEx)
 	ON_NOTIFY(NM_CLICK, IDC_LIST3, &CDrowListControlitemDlg::OnNMClickList3)
 //	ON_NOTIFY(LVN_HOTTRACK, IDC_LIST3, &CDrowListControlitemDlg::OnLvnHotTrackList3)
 //ON_NOTIFY(LVN_HOTTRACK, IDC_LIST3, &CDrowListControlitemDlg::OnLvnHotTrackList3)
+ON_BN_CLICKED(IDC_BUTTON3, &CDrowListControlitemDlg::OnBnClickedButton3)
+ON_BN_CLICKED(IDC_BUTTON4, &CDrowListControlitemDlg::OnBnClickedButton4)
+ON_BN_CLICKED(IDC_BUTTON5, &CDrowListControlitemDlg::OnBnClickedButton5)
+ON_BN_CLICKED(IDC_BUTTON6, &CDrowListControlitemDlg::OnBnClickedButton6)
 END_MESSAGE_MAP()
 
 
@@ -202,7 +208,7 @@ void CDrowListControlitemDlg::OnBnClickedButton2()
 	
 	CString SNNumberData;
 	CString photoPathData;
-	CString out = _T("1\n");
+	
 
 	for (int i = 0; i < 40; i++)
 	{
@@ -213,31 +219,20 @@ void CDrowListControlitemDlg::OnBnClickedButton2()
 		model.SNNumber = SNNumberData;
 
 		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\桌面文件\\lili\\%d.jpg"), i);//照片的路径
-		out += photoPathData;
-		out += "\n";
 		model.photoPath = photoPathData;
 
 		m_Equment.Add(model);//添加数据模型model<struct>
 		
 	}
 
-	out += "ddd56464646464dddd";
+	
 	
 
 	//CString 转 char 
-	int len = out.GetLength();
-	char *cstr = new char[len + 1];
-	cstr[len] = 0;
-	WideCharToMultiByte(CP_OEMCP, 0, out, -1, cstr, len, NULL, NULL);
-	
-
-
-
-	ofstream outfile;
-	outfile.open("C:\\Users\\SHICHUAN\\Desktop\\12.txt");
-	outfile << cstr << endl;
-	delete cstr;
-	outfile.close();
+	//int len = out.GetLength();
+	//char *cstr = new char[len + 1];
+	//cstr[len] = 0;
+	//(CP_OEMCP, 0, out, -1, cstr, len, NULL, NULL);
 
 	
 }
@@ -282,4 +277,127 @@ void CDrowListControlitemDlg::DrowPicture(ModelStruct mode)
 
 
 
+void CDrowListControlitemDlg::OnBnClickedButton3()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CString SNNumberData;
+	CString photoPathData;
 
+	
+	CArray<ListData*, ListData*> array;
+
+
+	for (int i = 0; i < 40; i++)
+	{
+		ModelStruct model;
+		//ListData *model = new  ListData();
+
+		SNNumberData.Format(_T("DY0900010%d"), i);
+		//model->m_equmentData = SNNumberData;
+		model.SNNumber = SNNumberData;
+
+		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\桌面文件\\lili\\%d.jpg"), i);//照片的路径
+	
+		//model->m_photoPathData = photoPathData;
+		model.photoPath = photoPathData;
+
+		//array.Add(model);//添加数据模型model<struct>
+		m_Equment.Add(model);
+	}
+
+	CFile file(_T("array.txt"), CFile::modeCreate | CFile::modeWrite);
+	CArchive ar(&file, CArchive::store);
+	m_Equment.Serialize(ar);
+
+	
+
+	ar.Close();
+	file.Close();
+	MessageBox(_T("串行化成功"));
+
+
+}
+
+
+void CDrowListControlitemDlg::OnBnClickedButton4()
+{
+
+	// TODO: 在此添加控件通知处理程序代码
+	CFile flie(_T("array.txt"), CFile::modeRead);
+	CArchive ar(&flie, CArchive::load);
+	CArray<ListData*, ListData*> array;
+
+
+	CArray<ModelStruct, ModelStruct&> localData;
+	localData.Serialize(ar);
+
+
+
+	CString str1;
+	str1.Format(_T("%d"), localData.GetCount());
+	AfxMessageBox(str1);
+
+
+	for (int i = 0; i < localData.GetCount(); i++)
+	{
+		ModelStruct wxData = localData.GetAt(i);
+		m_list.InsertItem(i, _T(""));//触发重绘控件的代码
+		m_list.SetItemInfo(i, wxData);
+	}
+
+	
+}
+
+
+void CDrowListControlitemDlg::OnBnClickedButton5()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CString SNNumberData;
+	CString photoPathData;
+
+	CFile file(_T("array.txt"), CFile::modeCreate | CFile::modeWrite);
+	CArchive ar(&file, CArchive::store);
+
+
+	for (int i = 0; i < 40; i++)
+	{
+		ListData *model = new  ListData();
+		SNNumberData.Format(_T("DY0900010%d"), i);
+		model->m_equmentData = SNNumberData;
+		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\桌面文件\\lili\\%d.jpg"), i);//照片的路径
+		model->m_photoPathData = photoPathData;
+		ar << SNNumberData << photoPathData;//序列化
+	}
+	  
+	ar.Close();
+	file.Close();
+	MessageBox(_T("串行化成功"));
+
+}
+
+
+void CDrowListControlitemDlg::OnBnClickedButton6()
+{
+	// TODO: 在此添加控件通知处理程序代码
+	CFile flie(_T("array.txt"), CFile::modeRead);
+	CArchive ar(&flie, CArchive::load);
+	CArray<ModelStruct, ModelStruct&> modelArray;
+	
+	for (int i = 0; i < 40; i++)
+	{
+		ModelStruct wxData;
+		ar >> wxData.SNNumber >> wxData.photoPath;
+		modelArray.Add(wxData);	
+	}
+
+
+	for (int i = 0; i < 40; i++)
+	{
+		m_list.InsertItem(0, _T(""));//触发重绘控件的代码
+		m_list.SetItemInfo(0, modelArray[i]);
+	}
+
+
+
+
+}

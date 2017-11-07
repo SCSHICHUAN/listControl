@@ -12,3 +12,4 @@ typedef struct tagWXCONTACT
 }ModelStruct;
 
 #endif
+

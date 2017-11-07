@@ -188,6 +188,7 @@
   <ItemGroup>
     <ClInclude Include="DrowListControlitem.h" />
     <ClInclude Include="DrowListControlitemDlg.h" />
+    <ClInclude Include="ListData.h" />
     <ClInclude Include="ListItem.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Resource.h" />
@@ -197,6 +198,7 @@
   <ItemGroup>
     <ClCompile Include="DrowListControlitem.cpp" />
     <ClCompile Include="DrowListControlitemDlg.cpp" />
+    <ClCompile Include="ListData.cpp" />
     <ClCompile Include="ListItem.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="stdafx.cpp">
