@@ -129,7 +129,7 @@ BOOL CDrowListControlitemDlg::OnInitDialog()
 	m_list.InsertColumn(0, _T("00000"), LVCFMT_FILL, 600);
 	m_list.SetItemHeight(200);
 
-	
+	OnBnClickedButton6();//加载本地数据
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -270,7 +270,7 @@ void CDrowListControlitemDlg::DrowPicture(ModelStruct mode)
 	Graphics g(this->m_hWnd);
 	Image *m_image = Image::FromFile(mode.photoPath);
 
-	CRect rcItem(700,200, 1300,700);
+	CRect rcItem(700,300, 1300,800);
 	g.DrawImage(m_image, rcItem.left, rcItem.top, rcItem.Width(), rcItem.Height());
 	delete m_image;
 }
@@ -357,9 +357,12 @@ void CDrowListControlitemDlg::OnBnClickedButton5()
 
 	CFile file(_T("array.txt"), CFile::modeCreate | CFile::modeWrite);
 	CArchive ar(&file, CArchive::store);
+	int dataCount = 0;
+	dataCount = 40;
+	
+	ar << dataCount;
 
-
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < dataCount; i++)
 	{
 		ListData *model = new  ListData();
 		SNNumberData.Format(_T("DY0900010%d"), i);
@@ -382,7 +385,11 @@ void CDrowListControlitemDlg::OnBnClickedButton6()
 	CFile flie(_T("array.txt"), CFile::modeRead);
 	CArchive ar(&flie, CArchive::load);
 	CArray<ModelStruct, ModelStruct&> modelArray;
-	
+	int dataCount = 40;
+
+
+	ar >> dataCount;
+
 	for (int i = 0; i < 40; i++)
 	{
 		ModelStruct wxData;
@@ -391,7 +398,7 @@ void CDrowListControlitemDlg::OnBnClickedButton6()
 	}
 
 
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < dataCount; i++)
 	{
 		m_list.InsertItem(0, _T(""));//触发重绘控件的代码
 		m_list.SetItemInfo(0, modelArray[i]);
