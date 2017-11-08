@@ -1,5 +1,5 @@
-
-// DrowListControlitemDlg.cpp : ÊµÏÖÎÄ¼ş
+ï»¿
+// DrowListControlitemDlg.cpp : å®ç°æ–‡ä»¶
 //
 
 #include "stdafx.h"
@@ -20,27 +20,34 @@ using namespace Gdiplus;
 #include"Model.h"
 #include"ListData.h"
 
+
+#define POSTto "www.tuling123.com"
+#pragma warning(disable:4996)//ä¸è¦æœ‰4996é”™è¯¯
+#pragma comment(lib,"ws2_32.lib")
+
+
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
 
-// ÓÃÓÚÓ¦ÓÃ³ÌĞò¡°¹ØÓÚ¡±²Ëµ¥ÏîµÄ CAboutDlg ¶Ô»°¿ò
+// ç”¨äºåº”ç”¨ç¨‹åºâ€œå…³äºâ€èœå•é¡¹çš„ CAboutDlg å¯¹è¯æ¡†
 
 class CAboutDlg : public CDialogEx
 {
 public:
 	CAboutDlg();
 
-// ¶Ô»°¿òÊı¾İ
+// å¯¹è¯æ¡†æ•°æ®
 #ifdef AFX_DESIGN_TIME
 	enum { IDD = IDD_ABOUTBOX };
 #endif
 
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV Ö§³Ö
+	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV æ”¯æŒ
 
-// ÊµÏÖ
+// å®ç°
 protected:
 	DECLARE_MESSAGE_MAP()
 };
@@ -58,7 +65,7 @@ BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
 
-// CDrowListControlitemDlg ¶Ô»°¿ò
+// CDrowListControlitemDlg å¯¹è¯æ¡†
 
 
 
@@ -71,7 +78,7 @@ CDrowListControlitemDlg::CDrowListControlitemDlg(CWnd* pParent /*=NULL*/)
 void CDrowListControlitemDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_LIST3, m_list);//½«Äã¶¨ÒåµÄlistContr£¬ÒÔstroryBoard
+	DDX_Control(pDX, IDC_LIST3, m_list);//å°†ä½ å®šä¹‰çš„listContrï¼Œä»¥stroryBoard
 }
 
 BEGIN_MESSAGE_MAP(CDrowListControlitemDlg, CDialogEx)
@@ -89,18 +96,19 @@ ON_BN_CLICKED(IDC_BUTTON3, &CDrowListControlitemDlg::OnBnClickedButton3)
 ON_BN_CLICKED(IDC_BUTTON4, &CDrowListControlitemDlg::OnBnClickedButton4)
 ON_BN_CLICKED(IDC_BUTTON5, &CDrowListControlitemDlg::OnBnClickedButton5)
 ON_BN_CLICKED(IDC_BUTTON6, &CDrowListControlitemDlg::OnBnClickedButton6)
+ON_BN_CLICKED(IDC_BUTTON7, &CDrowListControlitemDlg::OnBnClickedButton7)
 END_MESSAGE_MAP()
 
 
-// CDrowListControlitemDlg ÏûÏ¢´¦Àí³ÌĞò
+// CDrowListControlitemDlg æ¶ˆæ¯å¤„ç†ç¨‹åº
 
 BOOL CDrowListControlitemDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
 
-	// ½«¡°¹ØÓÚ...¡±²Ëµ¥ÏîÌí¼Óµ½ÏµÍ³²Ëµ¥ÖĞ¡£
+	// å°†â€œå…³äº...â€èœå•é¡¹æ·»åŠ åˆ°ç³»ç»Ÿèœå•ä¸­ã€‚
 
-	// IDM_ABOUTBOX ±ØĞëÔÚÏµÍ³ÃüÁî·¶Î§ÄÚ¡£
+	// IDM_ABOUTBOX å¿…é¡»åœ¨ç³»ç»Ÿå‘½ä»¤èŒƒå›´å†…ã€‚
 	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
 	ASSERT(IDM_ABOUTBOX < 0xF000);
 
@@ -118,19 +126,19 @@ BOOL CDrowListControlitemDlg::OnInitDialog()
 		}
 	}
 
-	// ÉèÖÃ´Ë¶Ô»°¿òµÄÍ¼±ê¡£  µ±Ó¦ÓÃ³ÌĞòÖ÷´°¿Ú²»ÊÇ¶Ô»°¿òÊ±£¬¿ò¼Ü½«×Ô¶¯
-	//  Ö´ĞĞ´Ë²Ù×÷
-	SetIcon(m_hIcon, TRUE);			// ÉèÖÃ´óÍ¼±ê
-	SetIcon(m_hIcon, FALSE);		// ÉèÖÃĞ¡Í¼±ê
+	// è®¾ç½®æ­¤å¯¹è¯æ¡†çš„å›¾æ ‡ã€‚  å½“åº”ç”¨ç¨‹åºä¸»çª—å£ä¸æ˜¯å¯¹è¯æ¡†æ—¶ï¼Œæ¡†æ¶å°†è‡ªåŠ¨
+	//  æ‰§è¡Œæ­¤æ“ä½œ
+	SetIcon(m_hIcon, TRUE);			// è®¾ç½®å¤§å›¾æ ‡
+	SetIcon(m_hIcon, FALSE);		// è®¾ç½®å°å›¾æ ‡
 
-	// TODO: ÔÚ´ËÌí¼Ó¶îÍâµÄ³õÊ¼»¯´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ é¢å¤–çš„åˆå§‹åŒ–ä»£ç 
 	Gdiplus::GdiplusStartup(&m_pGdiToken, &m_pGdipluStartupInput, NULL);
 	
 	m_list.InsertColumn(0, _T("00000"), LVCFMT_FILL, 600);
 	m_list.SetItemHeight(200);
 
-	OnBnClickedButton6();//¼ÓÔØ±¾µØÊı¾İ
-	return TRUE;  // ³ı·Ç½«½¹µãÉèÖÃµ½¿Ø¼ş£¬·ñÔò·µ»Ø TRUE
+	OnBnClickedButton6();//åŠ è½½æœ¬åœ°æ•°æ®
+	return TRUE;  // é™¤éå°†ç„¦ç‚¹è®¾ç½®åˆ°æ§ä»¶ï¼Œå¦åˆ™è¿”å› TRUE
 }
 
 void CDrowListControlitemDlg::OnSysCommand(UINT nID, LPARAM lParam)
@@ -146,9 +154,9 @@ void CDrowListControlitemDlg::OnSysCommand(UINT nID, LPARAM lParam)
 	}
 }
 
-// Èç¹ûÏò¶Ô»°¿òÌí¼Ó×îĞ¡»¯°´Å¥£¬ÔòĞèÒªÏÂÃæµÄ´úÂë
-//  À´»æÖÆ¸ÃÍ¼±ê¡£  ¶ÔÓÚÊ¹ÓÃÎÄµµ/ÊÓÍ¼Ä£ĞÍµÄ MFC Ó¦ÓÃ³ÌĞò£¬
-//  Õâ½«ÓÉ¿ò¼Ü×Ô¶¯Íê³É¡£
+// å¦‚æœå‘å¯¹è¯æ¡†æ·»åŠ æœ€å°åŒ–æŒ‰é’®ï¼Œåˆ™éœ€è¦ä¸‹é¢çš„ä»£ç 
+//  æ¥ç»˜åˆ¶è¯¥å›¾æ ‡ã€‚  å¯¹äºä½¿ç”¨æ–‡æ¡£/è§†å›¾æ¨¡å‹çš„ MFC åº”ç”¨ç¨‹åºï¼Œ
+//  è¿™å°†ç”±æ¡†æ¶è‡ªåŠ¨å®Œæˆã€‚
 
 void CDrowListControlitemDlg::OnPaint()
 {
@@ -157,11 +165,11 @@ void CDrowListControlitemDlg::OnPaint()
 	
 	if (IsIconic())
 	{
-		CPaintDC dc(this); // ÓÃÓÚ»æÖÆµÄÉè±¸ÉÏÏÂÎÄ
+		CPaintDC dc(this); // ç”¨äºç»˜åˆ¶çš„è®¾å¤‡ä¸Šä¸‹æ–‡
 
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-		// Ê¹Í¼±êÔÚ¹¤×÷Çø¾ØĞÎÖĞ¾ÓÖĞ
+		// ä½¿å›¾æ ‡åœ¨å·¥ä½œåŒºçŸ©å½¢ä¸­å±…ä¸­
 		int cxIcon = GetSystemMetrics(SM_CXICON);
 		int cyIcon = GetSystemMetrics(SM_CYICON);
 		CRect rect;
@@ -169,7 +177,7 @@ void CDrowListControlitemDlg::OnPaint()
 		int x = (rect.Width() - cxIcon + 1) / 2;
 		int y = (rect.Height() - cyIcon + 1) / 2;
 
-		// »æÖÆÍ¼±ê
+		// ç»˜åˆ¶å›¾æ ‡
 		dc.DrawIcon(x, y, m_hIcon);
 	}
 	else
@@ -178,8 +186,8 @@ void CDrowListControlitemDlg::OnPaint()
 	}
 }
 
-//µ±ÓÃ»§ÍÏ¶¯×îĞ¡»¯´°¿ÚÊ±ÏµÍ³µ÷ÓÃ´Ëº¯ÊıÈ¡µÃ¹â±ê
-//ÏÔÊ¾¡£
+//å½“ç”¨æˆ·æ‹–åŠ¨æœ€å°åŒ–çª—å£æ—¶ç³»ç»Ÿè°ƒç”¨æ­¤å‡½æ•°å–å¾—å…‰æ ‡
+//æ˜¾ç¤ºã€‚
 HCURSOR CDrowListControlitemDlg::OnQueryDragIcon()
 {
 	return static_cast<HCURSOR>(m_hIcon);
@@ -195,13 +203,13 @@ void CDrowListControlitemDlg::OnBnClickedButton1()
 	for (INT i = 0; i < 40; i++)
 	{
 		ModelStruct wxData = m_Equment.GetAt(i);
-		m_list.InsertItem(i, _T(""));//´¥·¢ÖØ»æ¿Ø¼şµÄ´úÂë
+		m_list.InsertItem(i, _T(""));//è§¦å‘é‡ç»˜æ§ä»¶çš„ä»£ç 
 		m_list.SetItemInfo(i, wxData);
 	}
 	
 }
 
-//Ä£ÄâÍøÂç»òÕß±¾µØ²úÉúÊı¾İ£¬¡°¾ÍÊÇÒªÏÔÊ¾µ½listControlµÄÎÄ×ÖºÍÕÕÆ¬¡±
+//æ¨¡æ‹Ÿç½‘ç»œæˆ–è€…æœ¬åœ°äº§ç”Ÿæ•°æ®ï¼Œâ€œå°±æ˜¯è¦æ˜¾ç¤ºåˆ°listControlçš„æ–‡å­—å’Œç…§ç‰‡â€
 void CDrowListControlitemDlg::OnBnClickedButton2()
 {
 	
@@ -218,17 +226,17 @@ void CDrowListControlitemDlg::OnBnClickedButton2()
 		SNNumberData.Format(_T("DY0900010%d"), i);
 		model.SNNumber = SNNumberData;
 
-		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\×ÀÃæÎÄ¼ş\\lili\\%d.jpg"), i);//ÕÕÆ¬µÄÂ·¾¶
+		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\æ¡Œé¢æ–‡ä»¶\\lili\\%d.jpg"), i);//ç…§ç‰‡çš„è·¯å¾„
 		model.photoPath = photoPathData;
 
-		m_Equment.Add(model);//Ìí¼ÓÊı¾İÄ£ĞÍmodel<struct>
+		m_Equment.Add(model);//æ·»åŠ æ•°æ®æ¨¡å‹model<struct>
 		
 	}
 
 	
 	
 
-	//CString ×ª char 
+	//CString è½¬ char 
 	//int len = out.GetLength();
 	//char *cstr = new char[len + 1];
 	//cstr[len] = 0;
@@ -240,25 +248,25 @@ void CDrowListControlitemDlg::OnBnClickedButton2()
 
 void CDrowListControlitemDlg::F(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	// ´Ë¹¦ÄÜÒªÇó Internet Explorer 5 »ò¸ü¸ß°æ±¾¡£
-	// ·ûºÅ _WIN32_IE ±ØĞëÊÇ >= 0x0500¡£
+	// æ­¤åŠŸèƒ½è¦æ±‚ Internet Explorer 5 æˆ–æ›´é«˜ç‰ˆæœ¬ã€‚
+	// ç¬¦å· _WIN32_IE å¿…é¡»æ˜¯ >= 0x0500ã€‚
 	LPNMHDFILTERBTNCLICK phdr = reinterpret_cast<LPNMHDFILTERBTNCLICK>(pNMHDR);
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	*pResult = 0;
 }
 
 
 
-//listControl Ä³Ò»Ïî±»µã»÷
+//listControl æŸä¸€é¡¹è¢«ç‚¹å‡»
 void CDrowListControlitemDlg::OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 
 	ModelStruct model = m_list.GetItemInfo(pNMItemActivate->iItem);
 	
 	CFont font;
-   font.CreatePointFont(150, L"Î¢ÈíÑÅºÚ");
+   font.CreatePointFont(150, L"å¾®è½¯é›…é»‘");
    GetDlgItem(IDC_STATIC)->SetFont(&font);
 	SetDlgItemText(IDC_STATIC, model.SNNumber);
 	DrowPicture(model);
@@ -279,7 +287,7 @@ void CDrowListControlitemDlg::DrowPicture(ModelStruct mode)
 
 void CDrowListControlitemDlg::OnBnClickedButton3()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	CString SNNumberData;
 	CString photoPathData;
 
@@ -296,12 +304,12 @@ void CDrowListControlitemDlg::OnBnClickedButton3()
 		//model->m_equmentData = SNNumberData;
 		model.SNNumber = SNNumberData;
 
-		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\×ÀÃæÎÄ¼ş\\lili\\%d.jpg"), i);//ÕÕÆ¬µÄÂ·¾¶
+		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\æ¡Œé¢æ–‡ä»¶\\lili\\%d.jpg"), i);//ç…§ç‰‡çš„è·¯å¾„
 	
 		//model->m_photoPathData = photoPathData;
 		model.photoPath = photoPathData;
 
-		//array.Add(model);//Ìí¼ÓÊı¾İÄ£ĞÍmodel<struct>
+		//array.Add(model);//æ·»åŠ æ•°æ®æ¨¡å‹model<struct>
 		m_Equment.Add(model);
 	}
 
@@ -313,7 +321,7 @@ void CDrowListControlitemDlg::OnBnClickedButton3()
 
 	ar.Close();
 	file.Close();
-	MessageBox(_T("´®ĞĞ»¯³É¹¦"));
+	MessageBox(_T("ä¸²è¡ŒåŒ–æˆåŠŸ"));
 
 
 }
@@ -322,7 +330,7 @@ void CDrowListControlitemDlg::OnBnClickedButton3()
 void CDrowListControlitemDlg::OnBnClickedButton4()
 {
 
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	CFile flie(_T("array.txt"), CFile::modeRead);
 	CArchive ar(&flie, CArchive::load);
 	CArray<ListData*, ListData*> array;
@@ -341,7 +349,7 @@ void CDrowListControlitemDlg::OnBnClickedButton4()
 	for (int i = 0; i < localData.GetCount(); i++)
 	{
 		ModelStruct wxData = localData.GetAt(i);
-		m_list.InsertItem(i, _T(""));//´¥·¢ÖØ»æ¿Ø¼şµÄ´úÂë
+		m_list.InsertItem(i, _T(""));//è§¦å‘é‡ç»˜æ§ä»¶çš„ä»£ç 
 		m_list.SetItemInfo(i, wxData);
 	}
 
@@ -351,7 +359,7 @@ void CDrowListControlitemDlg::OnBnClickedButton4()
 
 void CDrowListControlitemDlg::OnBnClickedButton5()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	CString SNNumberData;
 	CString photoPathData;
 
@@ -367,21 +375,21 @@ void CDrowListControlitemDlg::OnBnClickedButton5()
 		ListData *model = new  ListData();
 		SNNumberData.Format(_T("DY0900010%d"), i);
 		model->m_equmentData = SNNumberData;
-		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\×ÀÃæÎÄ¼ş\\lili\\%d.jpg"), i);//ÕÕÆ¬µÄÂ·¾¶
+		photoPathData.Format(_T("C:\\Users\\SHICHUAN\\Desktop\\æ¡Œé¢æ–‡ä»¶\\lili\\%d.jpg"), i);//ç…§ç‰‡çš„è·¯å¾„
 		model->m_photoPathData = photoPathData;
-		ar << SNNumberData << photoPathData;//ĞòÁĞ»¯
+		ar << SNNumberData << photoPathData;//åºåˆ—åŒ–
 	}
 	  
 	ar.Close();
 	file.Close();
-	MessageBox(_T("´®ĞĞ»¯³É¹¦"));
+	MessageBox(_T("ä¸²è¡ŒåŒ–æˆåŠŸ"));
 
 }
 
 
 void CDrowListControlitemDlg::OnBnClickedButton6()
 {
-	// TODO: ÔÚ´ËÌí¼Ó¿Ø¼şÍ¨Öª´¦Àí³ÌĞò´úÂë
+	// TODO: åœ¨æ­¤æ·»åŠ æ§ä»¶é€šçŸ¥å¤„ç†ç¨‹åºä»£ç 
 	CFile flie(_T("array.txt"), CFile::modeRead);
 	CArchive ar(&flie, CArchive::load);
 	CArray<ModelStruct, ModelStruct&> modelArray;
@@ -400,7 +408,7 @@ void CDrowListControlitemDlg::OnBnClickedButton6()
 
 	for (int i = 0; i < dataCount; i++)
 	{
-		m_list.InsertItem(0, _T(""));//´¥·¢ÖØ»æ¿Ø¼şµÄ´úÂë
+		m_list.InsertItem(0, _T(""));//è§¦å‘é‡ç»˜æ§ä»¶çš„ä»£ç 
 		m_list.SetItemInfo(0, modelArray[i]);
 	}
 
@@ -408,3 +416,116 @@ void CDrowListControlitemDlg::OnBnClickedButton6()
 
 
 }
+
+
+#pragma warning(disable:4996)//ä¸è¦æœ‰4996é”™è¯¯
+#pragma comment(lib,"ws2_32.lib")//libåŠ¨æ€é“¾æ¥åº“
+
+#include<WinSock2.h>//socket2.2çš„ç‰ˆæœ¬
+#include<stdio.h>
+#include<stdlib.h>
+
+WSADATA wsaData;
+SOCKET  s;
+SOCKADDR_IN ServerAddr;
+int     Ret;
+int     Port = 8080;
+
+
+void CDrowListControlitemDlg::OnBnClickedButton7()
+{
+
+	
+
+
+
+	//1.åŠ è½½å’Œåˆå§‹åŒ–ç½‘ç»œåº“
+	if ((Ret = WSAStartup(MAKEWORD(2, 2), &wsaData)) != 0)
+	{
+		//printf("WSAStarup faiked with error. %d\n", Ret);
+	}
+
+	//2.åˆ›å»ºå¥—æ¥å­—
+	if ((s = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == INVALID_SOCKET)
+	{
+		//printf("socket filed with error. %d\n", WSAGetLastError());
+		WSACleanup();
+	}
+
+	//3.å¼€å§‹é“¾æ¥
+	ServerAddr.sin_family = AF_INET;
+	ServerAddr.sin_port = htons(Port); //é“¾æ¥çš„ç«¯å£
+	ServerAddr.sin_addr.S_un.S_addr = inet_addr("116.62.11.154"); // argv[1] å‘½ä»¤è¡Œå‚æ•°    åœ¨å‘½ä»¤è¡Œå¯ä»¥è¾“å…¥IPåœ°å€      /*inet_addr("127.0.0.1"); æœ¬æœºçš„åœ°å€*/
+
+															  //printf("We are trying to  connect to %s:%d...\n", inet_ntoa(ServerAddr.sin_addr), htons(ServerAddr.sin_port));
+
+															  //4.é“¾æ¥
+	if ((connect(s, (SOCKADDR*)&ServerAddr, sizeof(ServerAddr))) == SOCKET_ERROR)
+	{
+		//printf("connect failed with error. %d\n", WSAGetLastError());
+		closesocket(s);
+		WSACleanup();
+		AfxMessageBox(_T("é“¾æ¥å¤±è´¥"));
+	}
+	else
+	{
+	//	AfxMessageBox(_T("é“¾æ¥æˆåŠŸ"));
+	}
+
+
+	char str1[4096];
+
+	memset(str1, 0, 4096);
+	strcat(str1, "POST /mobile/list.do HTTP/1.1\n");
+	strcat(str1, "Host: 116.62.11.154:8080\n");
+	strcat(str1, "mobile: 18717791650\n");
+	strcat(str1, "password: 123\n");
+	strcat(str1, "ContentType: application/x-www-form-urlencoded; charset=UTF-8\n");
+	strcat(str1, "Content-Length: 0");
+	strcat(str1, "\r\n\r\n");
+	
+
+
+	//5.å‘é€
+	if ((Ret = send(s, str1, sizeof(str1), 0)) == SOCKET_ERROR)
+	{
+		printf("Sent failed with error %d.\n", WSAGetLastError());
+		AfxMessageBox(_T("å¤±è´¥"));
+		closesocket(s);
+		WSACleanup();
+	}
+
+
+
+	char DataBuffer[10240];//ç¼“å­˜å®¢æœç«¯å‘é€çš„æ•°æ®
+
+	Sleep(500);
+
+	//6.ç”¨å®¢æœç«¯çš„å¥—æ¥å­—å»æ¥æ”¶,å®¢æœç«¯çš„æ•°æ®,å‡½æ•°â€œrecvâ€
+	if ((Ret = recv(s, DataBuffer, sizeof(DataBuffer), 0)) == SOCKET_ERROR)
+	{
+		printf("recv failed with error %d\n", WSAGetLastError());
+		AfxMessageBox(_T("æ¥æ”¶å¤±è´¥"));
+		closesocket(s);
+		WSACleanup();
+	}
+	else
+	{
+		wchar_t *pwText = NULL;
+		DataBuffer[Ret] = '\0';
+		DWORD dwNum = MultiByteToWideChar(CP_ACP, 0, DataBuffer, -1, NULL, 0);    //è¿”å›åŸå§‹ASCIIç çš„å­—ç¬¦æ•°ç›®       
+	   pwText = new wchar_t[dwNum];                                                //æ ¹æ®ASCIIç çš„å­—ç¬¦æ•°åˆ†é…UTF8çš„ç©ºé—´
+		MultiByteToWideChar(CP_UTF8, 0, DataBuffer, -1, pwText, dwNum);           //å°†ASCIIç è½¬æ¢æˆUTF8
+
+
+
+		CString str;
+		str.Format(_T("%s"), pwText);
+		SetDlgItemText(IDC, str);
+	}
+
+
+}
+
+
+
