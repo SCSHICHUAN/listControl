@@ -21,10 +21,11 @@ using namespace Gdiplus;
 #include"ListData.h"
 
 
-#define POSTto "www.tuling123.com"
+
+
+
 #pragma warning(disable:4996)//不要有4996错误
 #pragma comment(lib,"ws2_32.lib")
-
 
 
 #ifdef _DEBUG
@@ -498,9 +499,6 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 
 
 	char DataBuffer[10240];//缓存客服端发送的数据
-
-	Sleep(500);
-
 	//6.用客服端的套接字去接收,客服端的数据,函数“recv”
 	if ((Ret = recv(s, DataBuffer, sizeof(DataBuffer), 0)) == SOCKET_ERROR)
 	{
@@ -511,18 +509,32 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 	}
 	else
 	{
+
 		wchar_t *pwText = NULL;
 		DataBuffer[Ret] = '\0';
-		DWORD dwNum = MultiByteToWideChar(CP_ACP, 0, DataBuffer, -1, NULL, 0);    //返回原始ASCII码的字符数目       
-	   pwText = new wchar_t[dwNum];                                                //根据ASCII码的字符数分配UTF8的空间
+		DWORD dwNum = MultiByteToWideChar(CP_UTF8, 0, DataBuffer, -1, NULL, 0);    //返回原始ASCII码的字符数目       
+	    pwText = new wchar_t[dwNum];                                              //根据ASCII码的字符数分配UTF8的空间
 		MultiByteToWideChar(CP_UTF8, 0, DataBuffer, -1, pwText, dwNum);           //将ASCII码转换成UTF8
 
+		
 
+		/*s="abcdefghijk";
+          s1=s.Left(2);	//ab
+          s2=s.Mid(3);	//defghijk
+          s4=s.Right(3);//ijk */
 
 		CString str;
 		str.Format(_T("%s"), pwText);
+		int postion = str.Find('{');
+		str = str.Mid(postion);//截取需要的字符串
 		SetDlgItemText(IDC, str);
-	}
+		}
+
+
+	closesocket(s);
+	WSACleanup();
+
+
 
 
 }

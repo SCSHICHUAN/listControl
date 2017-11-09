@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\JSON">
+      <UniqueIdentifier>{df65efc5-1ffa-4c7f-bb7d-1cf857e3464e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\JSON\json">
+      <UniqueIdentifier>{dd1947e7-3f96-4695-ae84-0442b3e68902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\JSON\lib_json">
+      <UniqueIdentifier>{3c308274-bc84-49af-9d1d-96e350e77711}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
