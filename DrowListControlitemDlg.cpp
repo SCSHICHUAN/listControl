@@ -132,7 +132,7 @@ BOOL CDrowListControlitemDlg::OnInitDialog()
 	m_list.InsertColumn(0, _T("00000"), LVCFMT_FILL, 600);
 	m_list.SetItemHeight(200);
 
-	OnBnClickedButton6();//加载本地数据
+	//OnBnClickedButton6();//加载本地数据
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -199,7 +199,7 @@ void CDrowListControlitemDlg::OnBnClickedButton1()
 	{
 		ModelStruct wxData = m_Equment.GetAt(i);
 		m_list.InsertItem(i, _T(""));//触发重绘控件的代码
-		m_list.SetItemInfo(i, wxData);
+		//m_list.SetItemInfo(i, wxData);
 	}
 	
 }
@@ -258,17 +258,17 @@ void CDrowListControlitemDlg::OnNMClickList3(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO: 在此添加控件通知处理程序代码
 
-	ModelStruct model = m_list.GetItemInfo(pNMItemActivate->iItem);
+	ModelFromserver model = m_list.GetItemInfo(pNMItemActivate->iItem);
 	
 	CFont font;
    font.CreatePointFont(150, L"微软雅黑");
    GetDlgItem(IDC_STATIC)->SetFont(&font);
-	SetDlgItemText(IDC_STATIC, model.SNNumber);
+	SetDlgItemText(IDC_STATIC, model.device);
 	DrowPicture(model);
 	*pResult = 0;
 }
 
-void CDrowListControlitemDlg::DrowPicture(ModelStruct mode)
+void CDrowListControlitemDlg::DrowPicture(ModelFromserver mode)
 {
 	Graphics g(this->m_hWnd);
 	Image *m_image = Image::FromFile(mode.photoPath);
@@ -345,7 +345,7 @@ void CDrowListControlitemDlg::OnBnClickedButton4()
 	{
 		ModelStruct wxData = localData.GetAt(i);
 		m_list.InsertItem(i, _T(""));//触发重绘控件的代码
-		m_list.SetItemInfo(i, wxData);
+		//m_list.SetItemInfo(i, wxData);
 	}
 
 	
@@ -404,7 +404,7 @@ void CDrowListControlitemDlg::OnBnClickedButton6()
 	for (int i = 0; i < dataCount; i++)
 	{
 		m_list.InsertItem(0, _T(""));//触发重绘控件的代码
-		m_list.SetItemInfo(0, modelArray[i]);
+		//m_list.SetItemInfo(0, modelArray[i]);
 	}
 
 
@@ -564,52 +564,51 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 
 
 
-		count = val["count"].asInt();
-		total = val["total"].asInt();
-		page = val["page"].asInt();
-		size = val["size"].asInt();
-		mobile = val["mobile"].asCString();
+		ModelFromserver object;
 
 
 
+		object.count  = count  = val["count"].asInt();
+		object.total  = total  = val["total"].asInt();
+		object.page   = page   = val["page"].asInt();
+		object.size   = size   = val["size"].asInt();
+		object.mobile = mobile = val["mobile"].asCString();
+
+
+		
 		int sz = val["block"].size();
 		for (int i = 0; i < sz; ++i) {
 		
 			
 
-			if (i == 0)
-			{
-				id = val["block"][i]["id"].asInt();
-				device = val["block"][i]["device"].asCString();
-				token = val["block"][i]["token"].asCString();
-				address = val["block"][i]["address"].asCString();
+		    
+			object.id          =	id       = val["block"][i]["id"].asInt();
+			object.device      = device      = val["block"][i]["device"].asCString();
+			object.token       = token       = val["block"][i]["token"].asCString();
+			object.address     = address     = val["block"][i]["address"].asCString();
 
-				address2 = val["block"][i]["location"]["address"].asCString();
-				latitude = val["block"][i]["location"]["latitude"].asFloat();
-				description = val["block"][i]["location"]["description"].asCString();
-				longitude = val["block"][i]["location"]["longitude"].asFloat();
+			object.address2    = address2    = val["block"][i]["location"]["address"].asCString();
+			object.latitude    = latitude    = val["block"][i]["location"]["latitude"].asFloat();
+			object.description = description = val["block"][i]["location"]["description"].asCString();
+			object.longitude   = longitude   = val["block"][i]["location"]["longitude"].asFloat();
 
-				refreshTime = val["block"][i]["refreshTime"].asCString();
-				isMaster = val["block"][i]["isMaster"].asBool();
-				isOnline = val["block"][i]["isOnline"].asBool();
+			object.refreshTime = refreshTime = val["block"][i]["refreshTime"].asCString();
+			object.isMaster    = isMaster    = val["block"][i]["isMaster"].asBool();
+			object.isOnline    = isOnline    = val["block"][i]["isOnline"].asBool();
 
-			}
 			
-
+			
+			m_sModel.Add(object);
+			
+			m_list.InsertItem(0, _T(""));//触发重绘控件的代码
+			m_list.SetItemInfo(0, object);
 			
 
 		}
-		str.Format(_T("%d,  %d,  %d,  %d,  %s,  %d,  %s,  %s, %s, %s, %f,  %s, %f,  %s,  %d,  %d"), count, total, page, size, mobile, id, device, 
-			token, address, address2, latitude, description, longitude, refreshTime, isMaster, isOnline);
+		//str.Format(_T("%d,  %d,  %d,  %d,  %s,  %d,  %s,  %s, %s, %s, %f,  %s, %f,  %s,  %d,  %d"), count, total, page, size, mobile, id, device, 
+			//token, address, address2, latitude, description, longitude, refreshTime, isMaster, isOnline);
 
-		
-
-		SetDlgItemText(IDC, str);
-
-
-		
-
-
+	
 		}
 
 

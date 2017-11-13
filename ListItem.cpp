@@ -39,7 +39,7 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	
   
 	//"tagDRAWITEMSTRUCT"应该是设置data的结构体https://msdn.microsoft.com/zh-cn/library/92fhtw0f.aspx
-	ModelStruct *model = (ModelStruct *)lpDrawItemStruct->itemData;
+	ModelFromserver *S_model = (ModelFromserver *)lpDrawItemStruct->itemData;
 
 
 	
@@ -86,7 +86,7 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 		
 
-		dc.DrawText(model->SNNumber, &rectItem, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:垂直对其
+		dc.DrawText(S_model->device, &rectItem, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:垂直对其
 		rectItem.bottom += 20;
 		rectItem.top += 20;
 		font.DeleteObject();
@@ -116,7 +116,7 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	if (1)
 	{
 		Graphics g(this->m_hWnd);
-		Image *m_image  = Image::FromFile(model->photoPath);
+		Image *m_image  = Image::FromFile(S_model->photoPath);
 		
 		CRect rcItem(lpDrawItemStruct->rcItem);
 		rcItem.left += 10;
@@ -142,17 +142,17 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 }
 
 //给对象赋值
-BOOL CListItem::SetItemInfo(int nItem, ModelStruct model)
+BOOL CListItem::SetItemInfo(int nItem, ModelFromserver model)
 {
-	ModelStruct *_model = new ModelStruct;
+	ModelFromserver *_model = new ModelFromserver;
 	*_model = model;
 	return SetItemData(nItem, (DWORD_PTR)(LPVOID)_model);
 }
 
 //获取对象
-ModelStruct CListItem::GetItemInfo(int nItem)
+ModelFromserver CListItem::GetItemInfo(int nItem)
 {
-	ModelStruct *model = (ModelStruct *)GetItemData(nItem);
+	ModelFromserver *model = (ModelFromserver *)GetItemData(nItem);
 	return (*model);
 }
 

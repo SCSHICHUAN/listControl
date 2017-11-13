@@ -20,8 +20,8 @@ public:
 public:
 
 	void SetItemHeight(UINT uHeight);
-	BOOL SetItemInfo(int nItem, ModelStruct wxCont);
-	ModelStruct GetItemInfo(int nItem);
+	BOOL SetItemInfo(int nItem, ModelFromserver wxCont);
+	ModelFromserver GetItemInfo(int nItem);
 	// Operations
 public:
 
