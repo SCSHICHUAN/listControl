@@ -19,15 +19,9 @@ using namespace Gdiplus;
 
 #include"Model.h"
 #include"ListData.h"
-
-
-
-
-
 #pragma warning(disable:4996)//不要有4996错误
 #pragma comment(lib,"ws2_32.lib")
-
-
+#include"json\json.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -528,6 +522,28 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 		int postion = str.Find('{');
 		str = str.Mid(postion);//截取需要的字符串
 		SetDlgItemText(IDC, str);
+
+
+
+		Json::Value root;
+		Json::Value arrayObj;
+		Json::Value item;
+
+		item["cpp"] = "jsoncpp";
+		item["java"] = "jsoninjava";
+		item["php"] = "support";
+		arrayObj.append(item);
+
+		root["name"] = "json";
+		root["array"] = arrayObj;
+
+		root.toStyledString();
+
+
+
+		
+
+
 		}
 
 

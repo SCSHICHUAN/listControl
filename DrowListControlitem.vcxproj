@@ -88,11 +88,12 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -183,6 +184,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="lib_json\CMakeLists.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -197,7 +199,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrowListControlitem.cpp" />
-    <ClCompile Include="DrowListControlitemDlg.cpp" />
+    <ClCompile Include="DrowListControlitemDlg.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="ListData.cpp" />
     <ClCompile Include="ListItem.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -212,6 +217,7 @@
     <ResourceCompile Include="DrowListControlitem.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lib_json\version.h.in" />
     <None Include="res\DrowListControlitem.rc2" />
   </ItemGroup>
   <ItemGroup>
