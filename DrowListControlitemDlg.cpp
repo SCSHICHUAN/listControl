@@ -525,20 +525,59 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 
 
 
-		Json::Value root;
-		Json::Value arrayObj;
-		Json::Value item;
 
-		item["cpp"] = "jsoncpp";
-		item["java"] = "jsoninjava";
-		item["php"] = "support";
-		arrayObj.append(item);
+		//从字符串中读取数据  
+		std::string Sstr = CStringA(str);
 
-		root["name"] = "json";
-		root["array"] = arrayObj;
 
-		root.toStyledString();
 
+		Json::Value val;
+		Json::Reader reader;
+
+		if (!reader.parse(Sstr, val)) {
+			return;
+		}
+
+		
+		int a;
+		int a1;
+		int a2;
+		int a3;
+	
+
+
+
+
+		int sz = val["block"].size();
+		for (int i = 0; i < sz; ++i) {
+		
+			
+
+			if (i == 0)
+			{
+				a = val["block"][i]["id"].asInt();
+			}
+			if (i == 1)
+			{
+				a1 = val["block"][i]["id"].asInt();
+			}
+			if (i == 2)
+			{
+				a2 = val["block"][i]["id"].asInt();
+			}
+			if (i == 3)
+			{
+				a3 = val["block"][i]["id"].asInt();
+			}
+
+			
+
+		}
+		str.Format(_T("%d  %d  %d  %d"), a, a1, a2, a3);
+
+		
+
+		SetDlgItemText(IDC, str);
 
 
 		
@@ -551,7 +590,7 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 	WSACleanup();
 
 
-
+	
 
 }
 
