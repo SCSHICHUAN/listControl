@@ -71,8 +71,6 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	{
 		
 		CRect rect = &lpDrawItemStruct->rcItem;
-		//CString str;
-		//str.Format(_T("DY000010%d"), rect.top);
 
 
 		CFont font;
@@ -80,21 +78,168 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		dc.SelectObject(&font);
 
 		CRect rectItem(lpDrawItemStruct->rcItem);
-		//rectItem.left += 100*2+40;
-		//rectItem.bottom -= 20;
+		rectItem.left += 10;
+		rectItem.top -= 350;
 		dc.SetTextColor(RGB(255, 255, 255));
 
 		
-
 		dc.DrawText(S_model->device, &rectItem, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
-		rectItem.bottom -= 200;
-		rectItem.top -= 100;
-		font.DeleteObject();
+		
 
-		font.CreatePointFont(100, _T("ËÎÌå"));
-		dc.SelectObject(&font);
-		dc.SetTextColor(RGB(127, 127, 127));
-		//dc.DrawText(pwxCont->strNickName, &rectItem, DT_VCENTER | DT_SINGLELINE);
+
+		CFont font2;
+		font2.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font2);
+
+
+		CString str;
+		str.Format(_T("id:%d"), S_model->id);
+		CRect rectItem2(lpDrawItemStruct->rcItem);
+		rectItem2.left += 10;
+		rectItem2.top -= 350-60;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str,&rectItem2, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+
+
+		CFont font3;
+		font3.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font3);
+
+
+	
+		str.Format(_T("token:%s"), S_model->token);
+		CRect rectItem3(lpDrawItemStruct->rcItem);
+		rectItem3.top -= 350 - 60;
+		rectItem3.left += 110;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem3, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+
+		CFont font4;
+		font4.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font4);
+
+
+
+		str.Format(_T("address:%s"), S_model->address);
+		CRect rectItem4(lpDrawItemStruct->rcItem);
+		rectItem4.top -= 350 - 60;
+		rectItem4.left += 110 +200;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem4, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+		CFont font5;
+		font5.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font5);
+
+
+
+		str.Format(_T("address:%s"), S_model->address2);
+		CRect rectItem5(lpDrawItemStruct->rcItem);
+		rectItem5.top -= 350 - 130;
+		rectItem5.left += 10;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem5, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+
+
+		CFont font6;
+		font6.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font6);
+
+
+
+		str.Format(_T("latitude:%f"), S_model->latitude);
+		CRect rectItem6(lpDrawItemStruct->rcItem);
+		rectItem6.top -= 350 - 130-70;
+		rectItem6.left += 10;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem6, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+
+		CFont font7;
+		font7.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font7);
+
+
+
+		str.Format(_T("longitude:%f"), S_model->longitude);
+		CRect rectItem7(lpDrawItemStruct->rcItem);
+		rectItem7.top -= 350 - 130 - 70;
+		rectItem7.left +=210;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem7, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+
+
+
+		CFont font8;
+		font8.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font8);
+
+
+
+		str.Format(_T("description:%s"), S_model->description);
+		CRect rectItem8(lpDrawItemStruct->rcItem);
+		rectItem8.top -= 350 - 130 - 70-80;
+		rectItem8.left += 10;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem8, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+
+		CFont font9;
+		font9.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font9);
+
+
+
+		str.Format(_T("refreshTime:%s"), S_model->refreshTime);
+		CRect rectItem9(lpDrawItemStruct->rcItem);
+		rectItem9.top -= 350 - 130 - 70 - 80-80;
+		rectItem9.left += 10;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem9, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+	
+		CFont font10;
+		font10.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font10);
+
+
+
+		str.Format(_T("isMaster:%d"), S_model->isMaster);
+		CRect rectItem10(lpDrawItemStruct->rcItem);
+		rectItem10.top -= 350 - 130 - 70 - 80 - 80-80;
+		rectItem10.left += 10;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem10, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+		 
+
+
+		CFont font11;
+		font11.CreatePointFont(80, _T("Î¢ÈíÑÅºÚ"));
+		dc.SelectObject(&font11);
+
+
+
+		str.Format(_T("isOnline:%d"), S_model->isOnline);
+		CRect rectItem11(lpDrawItemStruct->rcItem);
+		rectItem11.top -= 350 - 130 - 70 - 80 - 80 - 80;
+		rectItem11.left += 10 +130;
+		dc.SetTextColor(RGB(255, 255, 255));
+		dc.DrawText(str, &rectItem11, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:´¹Ö±¶ÔÆä
+
+		
+		
+
+
 		font.DeleteObject();
 	}
 	else if(0)
