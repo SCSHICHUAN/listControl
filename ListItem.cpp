@@ -80,15 +80,15 @@ void CListItem::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		dc.SelectObject(&font);
 
 		CRect rectItem(lpDrawItemStruct->rcItem);
-		rectItem.left += 100*2+40;
-		rectItem.bottom -= 20;
+		//rectItem.left += 100*2+40;
+		//rectItem.bottom -= 20;
 		dc.SetTextColor(RGB(255, 255, 255));
 
 		
 
 		dc.DrawText(S_model->device, &rectItem, DT_VCENTER | DT_SINGLELINE);//DT_SINGLELINE:垂直对其
-		rectItem.bottom += 20;
-		rectItem.top += 20;
+		rectItem.bottom -= 200;
+		rectItem.top -= 100;
 		font.DeleteObject();
 
 		font.CreatePointFont(100, _T("宋体"));

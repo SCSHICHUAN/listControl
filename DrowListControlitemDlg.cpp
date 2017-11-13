@@ -130,7 +130,7 @@ BOOL CDrowListControlitemDlg::OnInitDialog()
 	Gdiplus::GdiplusStartup(&m_pGdiToken, &m_pGdipluStartupInput, NULL);
 	
 	m_list.InsertColumn(0, _T("00000"), LVCFMT_FILL, 600);
-	m_list.SetItemHeight(200);
+	m_list.SetItemHeight(400);
 
 	//OnBnClickedButton6();//加载本地数据
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -600,8 +600,8 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 			
 			m_sModel.Add(object);
 			
-			m_list.InsertItem(0, _T(""));//触发重绘控件的代码
-			m_list.SetItemInfo(0, object);
+		   m_list.InsertItem(0, _T(""));//触发重绘控件的代码
+		   m_list.SetItemInfo(0, object);
 			
 
 		}
