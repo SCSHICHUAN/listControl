@@ -539,12 +539,36 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 		}
 
 		
-		int a;
-		int a1;
-		int a2;
-		int a3;
-	
+		int     count;
+		int     total;
+		int     page;
+		int     size;
+		CString mobile;
 
+
+
+		
+	   
+		int     c;
+		CString c1;
+		CString c2;
+		CString c3;
+		CString c4;
+		float   c5;
+		CString c6;
+		float   c7;
+		CString c8;
+		BOOL c9;
+		BOOL c10;
+
+
+
+
+		count = val["count"].asInt();
+		total = val["total"].asInt();
+		page = val["page"].asInt();
+		size = val["size"].asInt();
+		mobile = val["mobile"].asCString();
 
 
 
@@ -555,25 +579,27 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 
 			if (i == 0)
 			{
-				a = val["block"][i]["id"].asInt();
+				 c = val["block"][i]["id"].asInt();
+				c1 = val["block"][i]["device"].asCString();
+				c1 = val["block"][i]["token"].asCString();
+				c3 = val["block"][i]["address"].asCString();
+
+				c4 = val["block"][i]["location"]["address"].asCString();
+				c5 = val["block"][i]["location"]["latitude"].asFloat();
+				c6 = val["block"][i]["location"]["description"].asCString();
+				c7 = val["block"][i]["location"]["longitude"].asFloat();
+
+				c8 = val["block"][i]["refreshTime"].asCString();
+				c9 = val["block"][i]["isMaster"].asBool();
+				c10 = val["block"][i]["isOnline"].asBool();
+
 			}
-			if (i == 1)
-			{
-				a1 = val["block"][i]["id"].asInt();
-			}
-			if (i == 2)
-			{
-				a2 = val["block"][i]["id"].asInt();
-			}
-			if (i == 3)
-			{
-				a3 = val["block"][i]["id"].asInt();
-			}
+			
 
 			
 
 		}
-		str.Format(_T("%d  %d  %d  %d"), a, a1, a2, a3);
+		str.Format(_T("%d,  %d,  %d,  %d,  %s,  %d,  %s,  %s, %s, %s, %f,  %s, %f,  %s,  %d,  %d"), count, total, page, size, mobile, c, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
 
 		
 
