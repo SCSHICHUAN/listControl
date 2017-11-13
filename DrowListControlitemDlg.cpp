@@ -549,17 +549,17 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 
 		
 	   
-		int     c;
-		CString c1;
-		CString c2;
-		CString c3;
-		CString c4;
-		float   c5;
-		CString c6;
-		float   c7;
-		CString c8;
-		BOOL c9;
-		BOOL c10;
+		int     id;
+		CString device;
+		CString token;
+		CString address;
+		CString address2;
+		float   latitude;
+		CString description;
+		float   longitude;
+		CString refreshTime;
+		BOOL isMaster;
+		BOOL isOnline;
 
 
 
@@ -579,19 +579,19 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 
 			if (i == 0)
 			{
-				 c = val["block"][i]["id"].asInt();
-				c1 = val["block"][i]["device"].asCString();
-				c1 = val["block"][i]["token"].asCString();
-				c3 = val["block"][i]["address"].asCString();
+				id = val["block"][i]["id"].asInt();
+				device = val["block"][i]["device"].asCString();
+				token = val["block"][i]["token"].asCString();
+				address = val["block"][i]["address"].asCString();
 
-				c4 = val["block"][i]["location"]["address"].asCString();
-				c5 = val["block"][i]["location"]["latitude"].asFloat();
-				c6 = val["block"][i]["location"]["description"].asCString();
-				c7 = val["block"][i]["location"]["longitude"].asFloat();
+				address2 = val["block"][i]["location"]["address"].asCString();
+				latitude = val["block"][i]["location"]["latitude"].asFloat();
+				description = val["block"][i]["location"]["description"].asCString();
+				longitude = val["block"][i]["location"]["longitude"].asFloat();
 
-				c8 = val["block"][i]["refreshTime"].asCString();
-				c9 = val["block"][i]["isMaster"].asBool();
-				c10 = val["block"][i]["isOnline"].asBool();
+				refreshTime = val["block"][i]["refreshTime"].asCString();
+				isMaster = val["block"][i]["isMaster"].asBool();
+				isOnline = val["block"][i]["isOnline"].asBool();
 
 			}
 			
@@ -599,7 +599,8 @@ void CDrowListControlitemDlg::OnBnClickedButton7()
 			
 
 		}
-		str.Format(_T("%d,  %d,  %d,  %d,  %s,  %d,  %s,  %s, %s, %s, %f,  %s, %f,  %s,  %d,  %d"), count, total, page, size, mobile, c, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
+		str.Format(_T("%d,  %d,  %d,  %d,  %s,  %d,  %s,  %s, %s, %s, %f,  %s, %f,  %s,  %d,  %d"), count, total, page, size, mobile, id, device, 
+			token, address, address2, latitude, description, longitude, refreshTime, isMaster, isOnline);
 
 		
 
